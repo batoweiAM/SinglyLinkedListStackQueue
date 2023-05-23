@@ -9,17 +9,7 @@ using System.Xml.Linq;
 
 namespace SinglyLinkedListStackQueue
 {
-    public class Node<T>
-    {
-        public T data;
-        public Node<T> next;
-
-        public Node(T data)
-        {
-            this.data = data;
-            this.next = null;
-        }
-    }
+   
 
     public class LinkedList<T>
     {
