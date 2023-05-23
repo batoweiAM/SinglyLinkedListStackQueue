@@ -8,13 +8,13 @@ namespace SinglyLinkedListStackQueue
 {
     public class Node<T>
     {
-        public T Item { get; set; }
+        public T Data { get; set; }
         public Node<T>? Next { get; set; }
-        public Node<T>? Prev { get; set; }
 
-        public Node(T item)
+        public Node(T data)
         {
-            Item = item;
+            Data = data;
+            Next = null;
         }
     }
 }

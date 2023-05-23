@@ -9,95 +9,87 @@ using System.Xml.Linq;
 
 namespace SinglyLinkedListStackQueue
 {
-    public class SinglyLinkList<T> : IEnumerable<Node<T>>
+    public class LinkedList<T>
     {
-        public Node<T>? Head { get; set; }
-        public int Count { get; set; }
+        public Node<T> head;
 
-        public IEnumerator<Node<T>> GetEnumerator()
+        public LinkedList()
         {
-            Node<T>? currentNode = Head;
-
-            while (currentNode != null)
-            {
-                yield return currentNode;
-                currentNode = currentNode.Next;
-            }
+            head = null;
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
+        // Add a node to the list
+        public void Add(Node<T> node)
         {
-            return GetEnumerator();
-        }
-
-        public void Add(Node<T> item)
-        {
-            if (Head == null)
+            if (head == null)
             {
-                Head = item;
+                head = node;
             }
             else
             {
-                item.Next = Head;
-                Head.Prev = item;
-
-                Head = item;
-            }
-
-            Count++;
-        }
-        public bool Remove(Node<T> item)
-        {
-            if (Head == null)
-            {
-                return false;
-            }
-            if (Head.Item.Equals(item))
-            {
-                Head = Head.Next;
-                Count--;
-                return true;
-            }
-            var currentNode = Head;
-            while (!(currentNode.Next == null))
-            {
-              if (currentNode.Next.Item.Equals(item))
+                Node<T> current = head;
+                while (current.Next != null)
                 {
-                    currentNode = currentNode.Next;
-                    Count--;
-                    return true;
-                }   
-              currentNode = currentNode.Next;
+                    current = current.Next;
+                }
+                current.Next = node;
             }
-            return false;
         }
-        public bool Check(Node<T> item)
+
+        // Remove a node from the list
+        public void Remove(Node<T> node)
         {
-            var currentNode = Head;
-            while (!(currentNode == null))
+            if (head == null)
             {
-                if (currentNode.Item.Equals(item))
+                return;
+            }
+
+            if (head.Data.Equals(node.Data))
+            {
+                head = head.Next;
+                return;
+            }
+
+            Node<T> current = head;
+            while (current.Next != null && !current.Next.Data.Equals(node.Data))
+            {
+                current = current.Next;
+            }
+
+            if (current.Next != null)
+            {
+                current.Next = current.Next.Next;
+            }
+        }
+
+        // Check if a node is in the list
+        public bool Check(Node<T> node)
+        {
+            Node<T> current = head;
+            while (current != null)
+            {
+                if (current.Data.Equals(node.Data))
                 {
                     return true;
                 }
-                currentNode = currentNode.Next;
+                current = current.Next;
             }
             return false;
         }
-
-        public int Index(Node<T> item)
+        public int Index(Node<T> node)
         {
-            var nodeCount = 0;
-            var currentNode = Head;
-            while (!(currentNode == null))
+            int index = 0;
+            Node<T> current = head;
+
+            while (current != null)
             {
-                if (currentNode.Item.Equals(item))
-                {
-                    return nodeCount;
-                }
-                nodeCount++;
-                currentNode = currentNode.Next;
+                if (current.Data.Equals(node))
+                    return index;
+
+                index++;
+                current = current.Next;
             }
+
             return -1;
         }
     }
