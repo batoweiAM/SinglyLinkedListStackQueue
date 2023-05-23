@@ -6,15 +6,9 @@ using System.Threading.Tasks;
 
 namespace SinglyLinkedListStackQueue
 {
-    public class Node<T>
+    class Node<T>
     {
-        public T Data { get; set; }
-        public Node<T>? Next { get; set; }
-
-        public Node(T data)
-        {
-            Data = data;
-            Next = null;
-        }
+        public T Value { get; set; }
+        public Node<T> Next { get; set; }
     }
 }

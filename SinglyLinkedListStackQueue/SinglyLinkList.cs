@@ -9,88 +9,98 @@ using System.Xml.Linq;
 
 namespace SinglyLinkedListStackQueue
 {
-    public class LinkedList<T>
+    class LinkedList<T>
     {
-        public Node<T> head;
+        public Node<T> _head;
 
-        public LinkedList()
+        public int Add(T item)
         {
-            head = null;
+            Node<T> newNode = new Node<T>() { Value = item };
+
+            if (_head == null)
+            {
+                _head = newNode;
+                return 1;
+            }
+
+            Node<T> currentNode = _head;
+
+            while (currentNode.Next != null)
+            {
+                currentNode = currentNode.Next;
+            }
+
+            currentNode.Next = newNode;
+
+            int count = 1;
+            currentNode = _head;
+
+            while (currentNode.Next != null)
+            {
+                count++;
+                currentNode = currentNode.Next;
+            }
+
+            return count + 1;
         }
 
-        // Add a node to the list
-        public void Add(Node<T> node)
+        public bool Remove(T item)
         {
-            if (head == null)
+            if (_head == null)
+                return false;
+
+            if (_head.Value.Equals(item))
             {
-                head = node;
+                _head = _head.Next;
+                return true;
             }
-            else
-            {
-                Node<T> current = head;
-                while (current.Next != null)
-                {
-                    current = current.Next;
-                }
-                current.Next = node;
-            }
+
+            Node<T> currentNode = _head;
+
+            while (currentNode.Next != null && !currentNode.Next.Value.Equals(item))
+                currentNode = currentNode.Next;
+
+            if (currentNode.Next == null)
+                return false;
+
+            currentNode.Next = currentNode.Next.Next;
+
+            return true;
         }
 
-        // Remove a node from the list
-        public void Remove(Node<T> node)
+        public bool Check(T item)
         {
-            if (head == null)
-            {
-                return;
-            }
+            Node<T> currentNode = _head;
 
-            if (head.Data.Equals(node.Data))
+            while (currentNode != null)
             {
-                head = head.Next;
-                return;
-            }
-
-            Node<T> current = head;
-            while (current.Next != null && !current.Next.Data.Equals(node.Data))
-            {
-                current = current.Next;
-            }
-
-            if (current.Next != null)
-            {
-                current.Next = current.Next.Next;
-            }
-        }
-
-        // Check if a node is in the list
-        public bool Check(Node<T> node)
-        {
-            Node<T> current = head;
-            while (current != null)
-            {
-                if (current.Data.Equals(node.Data))
-                {
+                if (currentNode.Value.Equals(item))
                     return true;
-                }
-                current = current.Next;
+
+                currentNode = currentNode.Next;
             }
+
             return false;
         }
-        public int Index(Node<T> node)
-        {
-            int index = 0;
-            Node<T> current = head;
 
-            while (current != null)
+        public int Index(T item)
+        {
+            Node<T> currentNode = _head;
+
+            int index = 0;
+
+            while (currentNode != null)
             {
-                if (current.Data.Equals(node))
+                if (currentNode.Value.Equals(item))
                     return index;
 
                 index++;
-                current = current.Next;
+                currentNode = currentNode.Next;
             }
 
             return -1;
         }
     }
 }
+
+    

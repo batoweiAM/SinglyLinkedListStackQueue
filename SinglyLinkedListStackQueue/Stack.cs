@@ -8,70 +8,53 @@ using System.Xml.Linq;
 
 namespace SinglyLinkedListStackQueue;
 
-public class Stack<T>
+class Stack<T>
 {
-    public LinkedList<T> list;
+    private List<T> _items = new List<T>();
 
-    public Stack()
+    public bool IsEmpty()
     {
-        list = new LinkedList<T>();
+        return _items.Count == 0;
     }
 
-    public bool IsEmpty(Node<T> node)
+    public void Push(T item)
     {
-        return list.head == null;
-    }
-    // Push a node onto the stack
-    public void Push(Node<T> node)
-    {
-        list.Add(node);
+        _items.Add(item);
     }
 
-    // Pop a node off the stack
-    public Node<T> Pop()
+    public T Pop()
     {
-        if (list == null || list.head == null)
+        if (IsEmpty())
         {
-            return null;
+            throw new InvalidOperationException("The stack is empty");
         }
 
-        Node<T> current = list.head;
-        while (current.Next != null && current.Next.Next != null)
-        {
-            current = current.Next;
-        }
+        int lastIndex = _items.Count - 1;
+        T lastItem = _items[lastIndex];
+        _items.RemoveAt(lastIndex);
 
-        Node<T> result = current.Next ?? list.head;
-
-        if (result == list.head)
-        {
-            list.head = null;
-            return result;
-        }
-
-        current.Next = null;
-
-        return result;
+        return lastItem;
     }
+
     public T Peek()
     {
-        if (list.head == null)
-            throw new InvalidOperationException("Stack is empty");
-
-        return list.head.Data;
-    }
-    public int Size()
-    {
-        int size = 0;
-
-        Node<T> current = list.head;
-
-        while (current != null)
+        if (IsEmpty())
         {
-            size++;
-            current = current.Next;
+            throw new InvalidOperationException("The stack is empty");
         }
 
-        return size;
+        int lastIndex = _items.Count - 1;
+        T lastItem = _items[lastIndex];
+
+        return lastItem;
+    }
+
+    public int Size()
+    {
+        return _items.Count;
     }
 }
+
+
+
+
