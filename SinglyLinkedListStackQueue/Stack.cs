@@ -1,60 +1,88 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 
-namespace SinglyLinkedListStackQueue;
-
-class Stack<T>
+namespace SinglyLinkedListStackQueue
 {
-    private List<T> _items = new List<T>();
+    //public class Node<T>
+    //{
+    //    public T data;
+    //    public Node<T> next;
 
-    public bool IsEmpty()
-    {
-        return _items.Count == 0;
-    }
+    //    public Node(T data)
+    //    {
+    //        this.data = data;
+    //        this.next = null;
+    //    }
+    //}
 
-    public void Push(T item)
+    public class Stack<T>
     {
-        _items.Add(item);
-    }
+        private Node<T> top;
+        private int size;
 
-    public T Pop()
-    {
-        if (IsEmpty())
+        public Stack()
         {
-            throw new InvalidOperationException("The stack is empty");
+            this.top = null;
+            this.size = 0;
         }
 
-        int lastIndex = _items.Count - 1;
-        T lastItem = _items[lastIndex];
-        _items.RemoveAt(lastIndex);
-
-        return lastItem;
-    }
-
-    public T Peek()
-    {
-        if (IsEmpty())
+        public bool IsEmpty()
         {
-            throw new InvalidOperationException("The stack is empty");
+            return top == null;
         }
 
-        int lastIndex = _items.Count - 1;
-        T lastItem = _items[lastIndex];
+        public void Push(T item)
+        {
+            Node<T> newNode = new Node<T>(item);
 
-        return lastItem;
-    }
+            if (top == null)
+            {
+                top = newNode;
+            }
+            else
+            {
+                newNode.next = top;
+                top = newNode;
+            }
 
-    public int Size()
-    {
-        return _items.Count;
+            size++;
+        }
+
+        public T Pop()
+        {
+            if (top == null)
+            {
+                throw new Exception("Stack is empty");
+            }
+
+            T item = top.data;
+
+            top = top.next;
+
+            size--;
+
+            return item;
+        }
+
+        public T Peek()
+        {
+            if (top == null)
+            {
+                throw new Exception("Stack is empty");
+            }
+
+            return top.data;
+        }
+
+        public int Size()
+        {
+            return size;
+        }
     }
 }
-
 
 
 

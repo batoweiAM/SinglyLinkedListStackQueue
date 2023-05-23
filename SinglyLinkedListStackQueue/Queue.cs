@@ -8,52 +8,58 @@ namespace SinglyLinkedListStackQueue
 {
     public class Queue<T>
     {
-        public LinkedList<T> list;
+        private Node<T> head;
+        private Node<T> tail;
+        private int size;
 
         public Queue()
         {
-            list = new LinkedList<T>();
+            this.head = null;
+            this.tail = null;
+            this.size = 0;
         }
 
-        public bool IsEmpty(Node<T> node)
+        public bool IsEmpty()
         {
-            return list.head == null;
+            return head == null;
         }
 
-
-        // Enqueue a node into the queue
-        public void Enqueue(Node<T> node)
+        public void Enqueue(T item)
         {
-            list.Add(node);
-        }
+            Node<T> newNode = new Node<T>(item);
 
-        // Dequeue a node from the queue
-        public Node<T> Dequeue()
-        {
-            if (list == null || list.head == null)
+            if (head == null)
             {
-                return null;
+                head = newNode;
+                tail = newNode;
+            }
+            else
+            {
+                tail.next = newNode;
+                tail = newNode;
             }
 
-            Node<T> result = list.head;
+            size++;
+        }
 
-            list.head = result.Next;
+        public T Dequeue()
+        {
+            if (head == null)
+            {
+                throw new Exception("Queue is empty");
+            }
 
-            return result;
+            T item = head.data;
+
+            head = head.next;
+
+            size--;
+
+            return item;
         }
 
         public int Size()
         {
-            int size = 0;
-
-            Node<T> current = list.head;
-
-            while (current != null)
-            {
-                size++;
-                current = current.Next;
-            }
-
             return size;
         }
     }

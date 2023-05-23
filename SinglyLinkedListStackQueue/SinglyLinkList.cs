@@ -9,75 +9,103 @@ using System.Xml.Linq;
 
 namespace SinglyLinkedListStackQueue
 {
-    class LinkedList<T>
+    public class Node<T>
     {
-        public Node<T> _head;
+        public T data;
+        public Node<T> next;
+
+        public Node(T data)
+        {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    public class LinkedList<T>
+    {
+        private Node<T> head;
+        private int size;
+
+        public LinkedList()
+        {
+            this.head = null;
+            this.size = 0;
+        }
 
         public int Add(T item)
         {
-            Node<T> newNode = new Node<T>() { Value = item };
+            Node<T> newNode = new Node<T>(item);
 
-            if (_head == null)
+            if (head == null)
             {
-                _head = newNode;
-                return 1;
+                head = newNode;
+            }
+            else
+            {
+                Node<T> current = head;
+
+                while (current.next != null)
+                {
+                    current = current.next;
+                }
+
+                current.next = newNode;
             }
 
-            Node<T> currentNode = _head;
+            size++;
 
-            while (currentNode.Next != null)
-            {
-                currentNode = currentNode.Next;
-            }
-
-            currentNode.Next = newNode;
-
-            int count = 1;
-            currentNode = _head;
-
-            while (currentNode.Next != null)
-            {
-                count++;
-                currentNode = currentNode.Next;
-            }
-
-            return count + 1;
+            return size;
         }
 
         public bool Remove(T item)
         {
-            if (_head == null)
-                return false;
-
-            if (_head.Value.Equals(item))
+            if (head == null)
             {
-                _head = _head.Next;
+                return false;
+            }
+
+            if (head.data.Equals(item))
+            {
+                head = head.next;
+                size--;
                 return true;
             }
 
-            Node<T> currentNode = _head;
+            Node<T> current = head;
 
-            while (currentNode.Next != null && !currentNode.Next.Value.Equals(item))
-                currentNode = currentNode.Next;
+            while (current.next != null && !current.next.data.Equals(item))
+            {
+                current = current.next;
+            }
 
-            if (currentNode.Next == null)
+            if (current.next == null)
+            {
                 return false;
+            }
 
-            currentNode.Next = currentNode.Next.Next;
+            current.next = current.next.next;
+            size--;
 
             return true;
         }
 
         public bool Check(T item)
         {
-            Node<T> currentNode = _head;
-
-            while (currentNode != null)
+            if (head == null)
             {
-                if (currentNode.Value.Equals(item))
-                    return true;
+                return false;
+            }
 
-                currentNode = currentNode.Next;
+            Node<T> current = head;
+
+            while (current != null)
+            {
+                if (current.data.Equals(item))
+                {
+                    return true;
+                }
+
+                current = current.next;
             }
 
             return false;
@@ -85,20 +113,27 @@ namespace SinglyLinkedListStackQueue
 
         public int Index(T item)
         {
-            Node<T> currentNode = _head;
+            if (head == null)
+            {
+                return -1;
+            }
 
             int index = 0;
 
-            while (currentNode != null)
-            {
-                if (currentNode.Value.Equals(item))
-                    return index;
+            Node<T> current = head;
 
+            while (current != null && !current.data.Equals(item))
+            {
                 index++;
-                currentNode = currentNode.Next;
+                current = current.next;
             }
 
-            return -1;
+            if (current == null)
+            {
+                return -1;
+            }
+
+            return index;
         }
     }
 }
