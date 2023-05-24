@@ -13,15 +13,17 @@ namespace SinglyLinkedListStackQueue
 
         public Stack()
         {
-            this.top = null;
+            this.top = default!;
             this.size = 0;
         }
 
+        //stack is empty
         public bool IsEmpty()
         {
             return top == null;
         }
 
+        //Adding to the stack
         public void Push(T item)
         {
             Node<T> newNode = new Node<T>(item);
@@ -39,6 +41,7 @@ namespace SinglyLinkedListStackQueue
             size++;
         }
 
+        //Removing from the stack
         public T Pop()
         {
             if (top == null)
@@ -55,6 +58,7 @@ namespace SinglyLinkedListStackQueue
             return item;
         }
 
+        //peek through the last added value
         public T Peek()
         {
             if (top == null)
@@ -65,9 +69,22 @@ namespace SinglyLinkedListStackQueue
             return top.data;
         }
 
+        //showing size of stack based on index
         public int Size()
         {
             return size;
+        }
+
+        //Printing the stack list
+        public void PrintStack()
+        {
+            Node<T> current = top;
+
+            while (current != null)
+            {
+                Console.WriteLine(current.data);
+                current = current.next;
+            }
         }
     }
 }

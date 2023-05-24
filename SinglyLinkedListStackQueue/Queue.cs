@@ -14,16 +14,18 @@ namespace SinglyLinkedListStackQueue
 
         public Queue()
         {
-            this.head = null;
-            this.tail = null;
+            this.head = default!;
+            this.tail = default!;
             this.size = 0;
         }
 
+        //check if the queue is empty
         public bool IsEmpty()
         {
             return head == null;
         }
 
+        //Enqueue the queue
         public void Enqueue(T item)
         {
             Node<T> newNode = new Node<T>(item);
@@ -42,6 +44,7 @@ namespace SinglyLinkedListStackQueue
             size++;
         }
 
+        //Dequeue the queue
         public T Dequeue()
         {
             if (head == null)
@@ -58,9 +61,22 @@ namespace SinglyLinkedListStackQueue
             return item;
         }
 
+        //showing size of the queue based on index
         public int Size()
         {
             return size;
+        }
+
+        //Printing the queue list
+        public void PrintQueue()
+        {
+            Node<T> current = head;
+
+            while (current != null)
+            {
+                Console.WriteLine(current.data);
+                current = current.next;
+            }
         }
     }
 }

@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace SinglyLinkedListStackQueue
 {
-    internal class Node
-    {
+    public class Node<T>
+    {   //Naming generic fields representing data stored in the node
+        public T data;
+        public Node<T> next;
+
+        //Constructor taking generic parameters
+        public Node(T data)
+        {
+            this.data = data;
+            this.next = default!;
+        }
     }
 }

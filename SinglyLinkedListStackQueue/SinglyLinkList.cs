@@ -10,21 +10,23 @@ using System.Xml.Linq;
 namespace SinglyLinkedListStackQueue
 {
    
-
+    //Generic linked linkedlist class
     public class LinkedList<T>
     {
         private Node<T> head;
         private int size;
 
+        //constructor declaring head to null and the size to zero showing an empty list
         public LinkedList()
         {
-            this.head = null;
+            this.head = default!;
             this.size = 0;
         }
 
+        //Method that adds to the linkedlist
         public int Add(T item)
         {
-            Node<T> newNode = new Node<T>(item);
+            var newNode = new Node<T>(item);
 
             if (head == null)
             {
@@ -47,6 +49,7 @@ namespace SinglyLinkedListStackQueue
             return size;
         }
 
+        //method that removes from the linkedlist
         public bool Remove(T item)
         {
             if (head == null)
@@ -54,7 +57,7 @@ namespace SinglyLinkedListStackQueue
                 return false;
             }
 
-            if (head.data.Equals(item))
+            if (head.data!.Equals(item))
             {
                 head = head.next;
                 size--;
@@ -63,7 +66,7 @@ namespace SinglyLinkedListStackQueue
 
             Node<T> current = head;
 
-            while (current.next != null && !current.next.data.Equals(item))
+            while (current.next != null && !current.next.data!.Equals(item))
             {
                 current = current.next;
             }
@@ -79,6 +82,7 @@ namespace SinglyLinkedListStackQueue
             return true;
         }
 
+        //checking the list if item is available
         public bool Check(T item)
         {
             if (head == null)
@@ -90,7 +94,7 @@ namespace SinglyLinkedListStackQueue
 
             while (current != null)
             {
-                if (current.data.Equals(item))
+                if (current.data!.Equals(item))
                 {
                     return true;
                 }
@@ -101,6 +105,7 @@ namespace SinglyLinkedListStackQueue
             return false;
         }
 
+        //index of each item in the list
         public int Index(T item)
         {
             if (head == null)
@@ -112,7 +117,7 @@ namespace SinglyLinkedListStackQueue
 
             Node<T> current = head;
 
-            while (current != null && !current.data.Equals(item))
+            while (current != null && !current.data!.Equals(item))
             {
                 index++;
                 current = current.next;
@@ -124,6 +129,18 @@ namespace SinglyLinkedListStackQueue
             }
 
             return index;
+        }
+
+        //Displaying the linkedlist when added
+        public void PrintList()
+        {
+            Node<T> current = head;
+
+            while (current != null)
+            {
+                Console.WriteLine(current.data);
+                current = current.next;
+            }
         }
     }
 }

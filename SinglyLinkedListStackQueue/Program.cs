@@ -13,36 +13,36 @@ namespace SinglyLinkedListStackQueue
         static void Main(string[] args)
         {
             //singly linkedlist output
-            LinkedList<int> linkedList = new LinkedList<int>();
+            var linkedList = new LinkedList<int>();
             linkedList.Add(10);
             linkedList.Add(15);
             linkedList.Add(20);
             linkedList.Add(25);
             linkedList.Add(30);
+            linkedList.PrintList();
 
-
-            Console.WriteLine("Removing 20 from LinkedList: " + linkedList.Remove(20));
-            Console.WriteLine("Checking if 15 is in LinkedList: " + linkedList.Check(15));
+            Console.WriteLine("Remove 30 from LinkedList: " + linkedList.Remove(30));
+            Console.WriteLine("Check if 15 is in LinkedList: " + linkedList.Check(15));
             Console.WriteLine("Index of 4 in LinkedList: " + linkedList.Index(4));
 
             //Stack output
-            Console.WriteLine(); Console.WriteLine();
+            Console.WriteLine();
 
-            Stack<int> stack = new Stack<int>();
+            var stack = new Stack<int>();
             stack.Push(10);
             stack.Push(15);
             stack.Push(20);
             stack.Push(25);
             stack.Push(30);
+            stack.PrintStack();
 
+            Console.WriteLine("Pop from Stack: " + stack.Pop());
             Console.WriteLine("Stack size: " + stack.Size());
-            Console.WriteLine("Popping from Stack: " + stack.Pop());
-            Console.WriteLine("Stack size: " + stack.Size());
-            Console.WriteLine("Peeking at Stack: " + stack.Peek());
+            Console.WriteLine("Peek at Stack: " + stack.Peek());
             Console.WriteLine("Is Stack empty? " + stack.IsEmpty());
 
             //Queue output
-            Console.WriteLine(); Console.WriteLine();
+            Console.WriteLine();
 
             Queue<int> queue = new Queue<int>();
             queue.Enqueue(10);
@@ -50,11 +50,13 @@ namespace SinglyLinkedListStackQueue
             queue.Enqueue(20);
             queue.Enqueue(25);
             queue.Enqueue(30);
+            queue.PrintQueue();
 
-            Console.WriteLine("Queue size: " + queue.Size());
-            Console.WriteLine("Dequeueing from Queue: " + queue.Dequeue());
+            Console.WriteLine("Dequeue from Queue: " + queue.Dequeue());
             Console.WriteLine("Queue size: " + queue.Size());
             Console.WriteLine("Is Queue empty? " + queue.IsEmpty());
+
+            Console.ReadKey();
         }
     }
 }
