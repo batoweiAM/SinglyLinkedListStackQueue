@@ -23,7 +23,7 @@ namespace SinglyLinkedListStackQueue
 
             Console.WriteLine("Remove 30 from LinkedList: " + linkedList.Remove(30));
             Console.WriteLine("Check if 15 is in LinkedList: " + linkedList.Check(15));
-            Console.WriteLine("Index of LinkedList: " + linkedList.Index(30));
+            Console.WriteLine("Index of LinkedList: " + linkedList.Index(0));
 
             //Stack output
             Console.WriteLine();
