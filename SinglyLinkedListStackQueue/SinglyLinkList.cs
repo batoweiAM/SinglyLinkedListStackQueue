@@ -108,21 +108,23 @@ namespace SinglyLinkedListStackQueue
         //index of each item in the list
         public int Index(T item)
         {
-            if (head == null)
-            {
-                return -1;
-            }
+            //if (head == null)
+            //{
+            //    return -1;
+            //}
 
             int index = 0;
-
             Node<T> current = head;
 
-            while (current != null && !current.data!.Equals(item))
+            while (!(current == null))
             {
+                if (current.data.Equals(item))
+                {
+                    return index;
+                }
                 index++;
                 current = current.next;
             }
-
             if (current == null)
             {
                 return -1;
